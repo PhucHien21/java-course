@@ -1,0 +1,79 @@
+package Assignment8;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.*;
+import javafx.scene.text.*; 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+public abstract class Ex8_1 extends Application{
+	
+    final TextArea txtArea = new TextArea();
+	
+	public void start(Stage primaryStage) throws Exception	{
+		primaryStage.setTitle("Assignment 8.1");
+		BorderPane root = new BorderPane();
+		
+		FlowPane top = new FlowPane();
+		top.setAlignment(Pos.CENTER);
+        top.setPadding(new Insets(5, 5, 5, 5));
+        top.setHgap(10);
+        
+        Label label1 = new Label("Text file's name: ");
+        TextField txt1 = new TextField();
+        Label label2 = new Label("String: ");
+        TextField txt2 = new TextField();
+        Button btn = new Button("Search");
+       
+        top.getChildren().add(label1);
+        top.getChildren().add(txt1);
+        top.getChildren().add(label2);
+        top.getChildren().add(txt2);
+        top.getChildren().add(btn);
+        
+        root.setTop(top);
+        root.setCenter(txtArea);
+        
+        Scene scene = new Scene(root, 700, 500);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+        	public void handle(ActionEvent e) {
+        		String name = txt1.getText();
+            	String search = txt2.getText();
+            	
+            	try(BufferedReader input = new BufferedReader(new FileReader(name)))	{
+            		String line;
+            		while((line = input.readLine()) != null)	{
+            			if (line.toLowerCase().contains(search.toLowerCase())) {
+            				System.out.println(line);
+            			}
+            		}
+            	} 
+            	catch (IOException e1) {
+					System.out.println("There is no " + name + " file");
+            	}
+        	}
+        });
+		
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+
+	}
+
+}

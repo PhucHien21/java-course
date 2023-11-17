@@ -1,0 +1,22 @@
+package Assignment2;
+
+import java.util.Scanner;
+
+public class Exercise2_1 {
+
+	public static void main(String[] args) {
+		
+		System.out.println("Enter UR conner coordinates and LL conner coordinates");
+		Scanner URX = new Scanner(System.in);	double URx = URX.nextDouble();
+		Scanner URY = new Scanner(System.in);	double URy = URY.nextDouble();
+		Scanner LLX = new Scanner(System.in);	double LLx = LLX.nextDouble();
+		Scanner LLY = new Scanner(System.in);	double LLy = LLY.nextDouble();
+		
+		Rectangle rec1 = new Rectangle();
+		Rectangle rec2 = new Rectangle(URx, URy);
+		Rectangle rec3 = new Rectangle(URx, URy, LLx, LLy);
+		
+		System.out.println("Rectangle 1: Width " + rec1.width());
+	}
+
+}

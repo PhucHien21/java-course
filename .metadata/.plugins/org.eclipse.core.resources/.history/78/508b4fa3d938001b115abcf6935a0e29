@@ -1,0 +1,39 @@
+package Assignment8;
+import java.util.*;
+import java.io.*;
+public class Ex8_3 {
+
+	private ArrayList<Employee> list = new ArrayList<>();
+	private String fileName = "employees.dat";
+	
+	public void writeToFile() {
+        System.out.println("ArrayList is serialized into products.dat");
+        try (ObjectOutputStream file_out
+             = new ObjectOutputStream(new FileOutputStream(fileName))){
+            file_out.writeObject(list);
+        }
+        catch(Exception e) {
+            System.out.println("Problems with " + fileName);
+            e.printStackTrace();
+        }
+    }
+	
+	@SuppressWarnings("unchecked")
+    public void readFromFile() {
+        System.out.println("ArrayList is de-serialized from products.dat");
+        try (ObjectInputStream file_in 
+            = new ObjectInputStream(new FileInputStream(fileName))){
+            list = (ArrayList<Employee>)file_in.readObject();
+        }
+        catch(Exception e) {
+            System.out.println("Problems with " + fileName);
+            e.printStackTrace();
+        }
+    }
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

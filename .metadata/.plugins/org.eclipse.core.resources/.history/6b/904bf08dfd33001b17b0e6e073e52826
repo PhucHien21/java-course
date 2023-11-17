@@ -1,0 +1,48 @@
+package assignment7;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+public class Ex7_1 extends Application{
+	
+	public void start(Stage primaryStage) throws Exception	{
+		primaryStage.setTitle("Assignment 7.1");
+		
+		GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        grid.setHgap(10); //Horizontal space between columns
+        grid.setVgap(10); //Vertical space between rows
+        grid.setPadding(new Insets(25, 25, 25, 25));
+        
+        Label label1 = new Label("V: ");
+        grid.add(label1, 0, 1);
+        Label label2 = new Label("R: ");
+        grid.add(label2, 0, 2);
+        Label label3 = new Label("I: ");
+        grid.add(label3, 0, 3);
+        
+        TextField txtV = new TextField();
+        TextField txtR = new TextField();
+        TextField txtI = new TextField();
+        
+        Button btn = new Button("Calculate");
+        
+        	
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

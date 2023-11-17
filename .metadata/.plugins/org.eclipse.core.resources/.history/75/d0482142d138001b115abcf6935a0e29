@@ -1,0 +1,22 @@
+package Assignment8;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+public class Ex8_2 {
+
+	public static void main(String[] args) {
+		
+		try(BufferedReader input = new BufferedReader(new FileReader("U:\\oop\\exercises\\src\\Assignment8\test.txt")))	{
+    		String line;
+    		while((line = input.readLine()) != null)	{
+    			System.out.println(line);
+    			System.out.println(input.readLine());
+    		}
+    	} 
+    	catch (IOException e1) {
+    		System.out.println("There is no file!");
+    	}
+
+	}
+
+}

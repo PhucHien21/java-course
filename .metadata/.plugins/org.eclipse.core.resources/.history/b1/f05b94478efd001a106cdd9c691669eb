@@ -1,0 +1,16 @@
+package exercises1;
+
+import exercises1.ex4;
+
+public class Exercise4a {
+
+	public static void main(String[] args) {
+		ex4 product;
+		product = new ex4();
+		product.setName("Laptop");
+		product.setPrice(2000);
+		product.setQuantity(2);
+		System.out.println("");
+	}
+
+}

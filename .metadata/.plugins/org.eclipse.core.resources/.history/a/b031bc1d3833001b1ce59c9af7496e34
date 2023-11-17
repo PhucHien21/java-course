@@ -1,0 +1,129 @@
+package homework6;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+//import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+public class Loan extends Application{
+	final Label statusLabel = new Label();
+	final FileChooser fileChooser = new FileChooser();
+	final TextArea result = new TextArea();
+	private File saveFile = null;
+	@Override
+	public void start(Stage mainStage) throws Exception {
+		mainStage.setTitle("Calculate loan");
+		BorderPane root = new BorderPane();
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files","*.txt"));
+		
+		GridPane top = new GridPane();
+        top.setAlignment(Pos.CENTER);
+        top.setHgap(10); 
+        top.setVgap(10); 
+        top.setPadding(new Insets(5, 5, 5, 5));
+        //loan
+        Label label1 = new Label("Loan amount (€)");
+        top.add(label1, 0, 0);
+
+        TextField loanInput = new TextField();
+        top.add(loanInput, 1, 0);
+        //interest rate
+        Label label2 = new Label("Interest rate (%)");
+        top.add(label2, 2, 0);
+
+        TextField interInput = new TextField();
+        top.add(interInput, 3, 0);
+        //period
+        Label label3 = new Label("Period (years)");
+        top.add(label3, 4, 0);
+
+        TextField yearInput = new TextField();
+        top.add(yearInput, 5, 0);
+        //button
+        Button btn1 = new Button("Calculate");
+        top.add(btn1, 6, 0);
+        
+        Button btn2 = new Button("Print");
+        top.add(btn2, 7, 0);
+
+		root.setTop(top);
+		
+		result.setEditable(false);
+		root.setCenter(result);
+		root.setBottom(statusLabel);
+		
+		Scene scene = new Scene(root,900,500);
+		mainStage.setScene(scene);
+		mainStage.show();
+		
+		StringBuilder strBuild = new StringBuilder();
+		btn1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent act1) {
+				strBuild.append("Year\tRepayment\tInterest\tInstallment\tRemaining\n");
+				try {
+					int year;
+					double loan,repay,rate,interest,install,remain = 0;
+					year = Integer.parseInt(yearInput.getText());
+					loan = Double.parseDouble(loanInput.getText());
+					rate = Double.parseDouble(interInput.getText());
+					repay = loan/(double)year;
+					remain = loan;
+					for(int i=0;i<year;i++) {
+						interest = remain*rate/100;
+						install = repay + interest;
+						remain = remain - repay;
+						strBuild.append((i+1) + "\t" + repay + "\t\t" + interest + "\t\t" + install + "\t\t" + remain);
+						strBuild.append("\n");
+					}
+				}
+				catch(NumberFormatException ex1) {
+					Alert alert = new Alert(AlertType.ERROR, "Check your input!");
+					alert.showAndWait();
+				}
+				result.setText(strBuild.toString());
+			}
+		});
+		
+		btn2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent act1) {
+				if(saveFile == null) {
+					File file = fileChooser.showSaveDialog(mainStage);
+					if(file != null) {
+						saveFile = file;
+						save();
+					}
+				} 
+				else {
+					save();
+				}
+			}
+		});
+	}
+	private void save() {
+		try(PrintWriter outputFile = new PrintWriter(new FileOutputStream(saveFile),true)){
+			result.setFont(Font.font("Courier New", FontWeight.NORMAL, 12));
+			outputFile.print(result.getText());
+			statusLabel.setText("Saved successfully into " + saveFile.getName());
+		}
+		catch(Exception ex2) {
+			Alert alert2 = new Alert(AlertType.ERROR, "Unfortunately, we can't save this file!");
+			statusLabel.setText("Saving data failed " + ex2.getMessage());
+			alert2.showAndWait();
+		}
+	}
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+}

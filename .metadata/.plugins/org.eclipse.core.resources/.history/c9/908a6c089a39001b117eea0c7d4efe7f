@@ -1,0 +1,36 @@
+package assignment9;
+
+public class Order {
+	private int ID;
+	private String cusName;
+	private Date Date;
+	private double total;
+
+	public String getCusName() {
+		return cusName;
+	}
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
+	}
+	public Date getDate() {
+		return Date;
+	}
+	public void setDate(Date date) {
+		this.Date = date;
+	}
+	public void addOrder(int iD, String cusName, Date date) {
+		this.ID = iD;
+		this.cusName = cusName;
+		this.Date = date;
+	}
+	public String toString()	{
+		return "Order ID: " + ID + "\nCustomer: " + cusName + "\nOrder date: " + Date.toString();
+	}
+	/*private double sum()	{
+		total = 0;
+		for(DrderLine list:order)	{
+			total += list.total();
+		}
+		return total;
+	}*/
+}

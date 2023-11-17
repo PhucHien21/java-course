@@ -1,0 +1,62 @@
+package assignment7;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+public class Ex7_1 extends Application{
+	
+	public void start(Stage primaryStage) throws Exception	{
+		primaryStage.setTitle("Assignment 7.1");
+		
+		FlowPane top = new FlowPane();
+		top.setAlignment(Pos.CENTER);
+        top.setPadding(new Insets(5, 5, 5, 5));
+        top.setHgap(10);
+        
+        Label label1 = new Label("V: ");
+        Label label2 = new Label("R: ");
+        Label label3 = new Label("I: ");
+        
+        TextField txtV = new TextField();
+        TextField txtR = new TextField();
+        TextField txtI = new TextField();
+        
+        Button btn = new Button("Calculate");
+        
+        top.getChildren().add(label1);
+        top.getChildren().add(txtV);
+        top.getChildren().add(label2);
+        top.getChildren().add(txtR);
+        top.getChildren().add(label3);
+        top.getChildren().add(txtI);
+        top.getChildren().add(btn);
+		
+        BorderPane root = new BorderPane();
+        root.setTop(top);
+        TextArea textArea = new TextArea();
+        textArea.setEditable(false);
+        root.setCenter(textArea);
+		
+        Scene scene = new Scene(root, 500, 300);
+        primaryStage.setTitle("Calculator");
+		
+        primaryStage.setScene(scene);
+        primaryStage.show();	
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

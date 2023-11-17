@@ -1,0 +1,30 @@
+package assignment4;
+
+public class features {
+	private int ID;
+	private String cusName;
+	private date Date;
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		this.ID = iD;
+	}
+	public String getCusName() {
+		return cusName;
+	}
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
+	}
+	public date getDate() {
+		return Date;
+	}
+	public void setDate(date date) {
+		this.Date = date;
+	}
+	public features(int iD, String cusName, date date) {
+		this.ID = iD;
+		this.cusName = cusName;
+		this.Date = date;
+	}
+}

@@ -1,0 +1,127 @@
+package homework6;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import javafx.application.Application;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
+//import javafx.collections.*;
+import javafx.event.*;
+import javafx.geometry.*;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+public class Loan extends Application{
+	final Label statusLabel = new Label();
+	final FileChooser fileChooser = new FileChooser();
+	final TextArea result = new TextArea();
+	private File saveFile = null;
+	@Override
+	public void start(Stage mainStage) throws Exception {
+		mainStage.setTitle("Calculate loan");
+		BorderPane root = new BorderPane();
+		fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Text Files","*.txt"));
+		
+		FlowPane topdiv = new FlowPane();
+		topdiv.setAlignment(Pos.CENTER);
+		topdiv.setPadding(new Insets(5,5,5,5));
+		topdiv.setHgap(10);
+		topdiv.setVgap(10);
+		
+		Label label1 = new Label("Loan amount (\u20AC):");
+		TextField textbox1 = new TextField();
+		Label label2 = new Label("Interest rate (%):");
+		TextField textbox2 = new TextField();
+		Label label3 = new Label("Period (Years):");
+		TextField textbox3 = new TextField();
+		
+		VBox buttondiv = new VBox(5);
+		Button btn1 = new Button("Calculate");
+		Button btn2 = new Button("Print result");
+		buttondiv.getChildren().add(btn1);
+		buttondiv.getChildren().add(btn2);
+		buttondiv.setAlignment(Pos.CENTER);
+		
+		topdiv.getChildren().add(label1);
+		topdiv.getChildren().add(textbox1);
+		topdiv.getChildren().add(label2);
+		topdiv.getChildren().add(textbox2);
+		topdiv.getChildren().add(label3);
+		topdiv.getChildren().add(textbox3);
+		topdiv.getChildren().add(buttondiv);
+
+		root.setTop(topdiv);
+		
+		result.setEditable(false);
+		root.setCenter(result);
+		root.setBottom(statusLabel);
+		
+		Scene scene = new Scene(root,900,500);
+		mainStage.setScene(scene);
+		mainStage.show();
+		
+		StringBuilder strBuild = new StringBuilder();
+		btn1.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent act1) {
+				strBuild.append("Year\tRepayment\tInterest\tInstallment\tRemaining\n");
+				try {
+					int year;
+					double lAmount,repay,rate,interest,install,remain = 0;
+					year = Integer.parseInt(textbox3.getText());
+					lAmount = Double.parseDouble(textbox1.getText());
+					rate = Double.parseDouble(textbox2.getText());
+					repay = lAmount/(double)year;
+					remain = lAmount;
+					for(int i=0;i<year;i++) {
+						interest = remain*rate/100;
+						install = repay + interest;
+						remain = remain - repay;
+						strBuild.append((i+1) + "\t" + repay + "\t\t" + interest + "\t\t" + install + "\t\t" + remain);
+						strBuild.append("\n");
+					}
+				}
+				catch(NumberFormatException ex1) {
+					Alert alert = new Alert(AlertType.ERROR, "Check your input!");
+					alert.showAndWait();
+				}
+				result.setText(strBuild.toString());
+			}
+		});
+		
+		btn2.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent act1) {
+				if(saveFile == null) {
+					File file = fileChooser.showSaveDialog(mainStage);
+					if(file != null) {
+						saveFile = file;
+						saveToFile();
+					}
+				} 
+				else {
+					saveToFile();
+				}
+			}
+		});
+	}
+	private void saveToFile() {
+		try(PrintWriter outputFile = new PrintWriter(new FileOutputStream(saveFile),true)){
+			result.setFont(Font.font("Courier New", FontWeight.NORMAL, 12));
+			outputFile.print(result.getText());
+			statusLabel.setText("Saved successfully into " + saveFile.getName());
+		}
+		catch(Exception ex2) {
+			Alert alert2 = new Alert(AlertType.ERROR, "Unfortunately, we can't save this file!");
+			statusLabel.setText("Saving data failed " + ex2.getMessage());
+			alert2.showAndWait();
+		}
+	}
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+}

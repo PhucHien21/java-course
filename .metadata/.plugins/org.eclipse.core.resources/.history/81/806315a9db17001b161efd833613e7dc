@@ -1,0 +1,17 @@
+package Assignment2;
+
+import java.util.Scanner;
+
+public class Exercise2_2 {
+
+	public static void main(String[] args) {
+		System.out.println("Enter the date");
+		
+		Scanner DATE = new Scanner(System.in);	int date = DATE.nextInt();
+		Scanner MONTH = new Scanner(System.in);	int month = MONTH.nextInt();
+		Scanner YEAR = new Scanner(System.in);	int year = YEAR.nextInt();
+
+		System.out.println("The date enter: " + toString());
+	}
+
+}

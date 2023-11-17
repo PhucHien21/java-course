@@ -1,0 +1,112 @@
+package mu;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+public class Program extends Application{
+	
+	private final String teamfile = "mu/teams.txt";
+	//ArrayList<Players> players = new ArrayList<>();
+	HashMap<String, String> players = new HashMap<String, String>();
+	
+	private final ComboBox<String> teams = new ComboBox<>();
+	
+	public void start(Stage primaryStage)	{
+		
+		try {
+			readTeam();
+		} catch(Exception ex) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.showAndWait();
+			return;
+		}
+		
+		BorderPane root = new BorderPane();
+        root.setCenter(teams);
+		
+        Scene scene = new Scene(root, 400, 400);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+		
+	}
+	
+	
+	//Read players' number, name and goals
+	public void readTeam() throws Exception{
+		ClassLoader cl = this.getClass().getClassLoader();
+		URL url = cl.getResource(teamfile); 
+
+		try(InputStream in = url.openStream(); BufferedReader input = new BufferedReader(new InputStreamReader(in)))
+		{
+			String line;
+			String pname;
+			//String pgoals;
+			while((line = input.readLine()) != null) {
+				pname = input.readLine();
+				pgoals = input.readLine();
+				players.put(pname, line);
+			}
+			List<String> names = players.keySet().stream().sorted().collect(Collectors.toList());
+			teams.setItems(FXCollections.observableArrayList(names));
+		}
+	}
+
+	/*private void readTeam() {
+		BufferedReader input = null;
+        try {
+        	System.out.println("Error");
+        	input = new BufferedReader(new FileReader("Teams.txt"));
+            //System.out.println("Error");
+        	String line;
+            while((line = input.readLine()) != null) {
+				String pname = input.readLine();
+				String pgoals = input.readLine();
+				players.put(pname, line);
+			}
+            System.out.println(players);
+			List<String> names = players.keySet().stream().sorted().collect(Collectors.toList());
+			teams.setItems(FXCollections.observableArrayList(names));
+        } catch (IOException ex) {
+            System.out.println(players);
+        }
+    } //End of method readFromCurrentFile*/
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+}

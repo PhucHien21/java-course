@@ -1,0 +1,13 @@
+package exercises1;
+
+import java.util.Scanner;
+
+public class Exercise4b {
+
+	public static void main(String[] args) {
+		ex4 product;
+		
+
+	}
+
+}

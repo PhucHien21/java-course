@@ -1,0 +1,40 @@
+package assignment9;
+
+import java.util.ArrayList;
+public class OrderLine {
+	private int ID;
+	private String cusName;
+	private Date Date;
+	private double total;
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		this.ID = iD;
+	}
+	public String getCusName() {
+		return cusName;
+	}
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
+	}
+	public Date getDate() {
+		return Date;
+	}
+	public void setDate(Date date) {
+		this.Date = date;
+	}
+	public void addFeatures(int iD, String cusName, Date date) {
+		this.ID = iD;
+		this.cusName = cusName;
+		this.Date = date;
+	}
+	
+	/*private double sum()	{
+		total = 0;
+		for(DrderLine list:order)	{
+			total += list.total();
+		}
+		return total;
+	}*/
+}

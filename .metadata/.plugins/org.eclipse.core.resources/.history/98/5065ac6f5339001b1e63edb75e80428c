@@ -1,0 +1,50 @@
+package assignment9;
+
+import java.util.ArrayList;
+
+import assignment4.date;
+import assignment4.orderLine;
+
+public class OrderLine {
+	private int ID;
+	private String cusName;
+	private date Date;
+	private double total;
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		this.ID = iD;
+	}
+	public String getCusName() {
+		return cusName;
+	}
+	public void setCusName(String cusName) {
+		this.cusName = cusName;
+	}
+	public date getDate() {
+		return Date;
+	}
+	public void setDate(date date) {
+		this.Date = date;
+	}
+	public void addFeatures(int iD, String cusName, date date) {
+		this.ID = iD;
+		this.cusName = cusName;
+		this.Date = date;
+	}
+	
+	private ArrayList<orderLine> order = new ArrayList<>();
+	public features()	{
+		order.add(new orderLine("Pencil", 2.5, 100));
+		order.add(new orderLine("Note book", 5, 20));
+		order.add(new orderLine("Pencil case", 14.95, 10));
+	}
+	private double sum()	{
+		total = 0;
+		for(orderLine list:order)	{
+			total += list.total();
+		}
+		return total;
+	}
+}
