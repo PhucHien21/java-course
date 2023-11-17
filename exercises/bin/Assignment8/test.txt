@@ -1,0 +1,3 @@
+Hello! My name is Hien.
+My ID is e1900306.
+This text is create for Exercise 8.1.

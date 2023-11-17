@@ -1,0 +1,21 @@
+HE
+Smith Ann
+160
+30
+HE
+Jones Bill
+180
+35
+SE
+Rivers Mary
+34000
+10
+SM
+Hill Ben
+5500
+21000
+20
+SE
+Peters Kevin
+29000
+10
